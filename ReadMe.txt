@@ -18,7 +18,7 @@ Gateway.
 • The completed system was capable of preforming transactions with a
 web UI while detecting fraudulent credit card transactions under 300
 milliseconds with the accuracy of 85 percent.
-Text Classification for Online Job Postings
+
 
 
 
