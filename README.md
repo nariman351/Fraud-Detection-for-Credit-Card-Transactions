@@ -1,4 +1,4 @@
-# Fraud-Detection-for-Credit-Card-Transactions
+# Fraud Detection for Credit Card Transactions
 
 (The Documentation is not yet complete.)
 
