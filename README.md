@@ -73,7 +73,7 @@ milliseconds with the accuracy of 85 percent.
       - [3.2.1.2 User Logout](#3212-user-logout)
       - [3.2.1.3 Register a User](#3213-register-a-user)
       - [3.2.1.4 Process a Credit Card Transaction](#3214-process-a-credit-card-transaction)
-  - [3.3System Requirements](#33system-requirements)
+  - [3.3 System Requirements](#33-system-requirements)
 - [4 Implementation](#4-implementation)
   - [4.1 User Interface (UI)](#41-user-interface-ui)
   - [4.2 Cloud-based Services](#42-cloud-based-services)
@@ -271,7 +271,204 @@ Mehta, et all, arXiv, aug 2021
 ## 3.1 The Architecture 
 ### 3.1.1 The Overall System Design 
 ### 3.1.2 Module View 
+
+
+
+***
+**Module Name:** Interface Module
+
+**Responsibility:** This module takes care of the user action with the system
+
+**Relations:** Each action taken by the user depends on the application logic module to give a
+response to the user's action
+
+**Visibility of interface:** This module is visible to the end-user of the system
+
+**Constraints:** The response highly depends on the application logic, without that the interface is
+barely a static page
+Interface Submodule
+***
+**Submodule Name:** Home Screen
+
+**Responsibility:** This module provides two options for the user, either Login or Create
+new user
+
+**Relations:** On opting on of the option, it navigates to either Login submodule or Create
+new user submodule
+
+**Visibility of interface:** This module is visible to the end-user of the system
+***
+**Submodule Name:** Log In
+
+**Responsibility:** This module takes care of the user’s input for login details
+
+**Relations:** This module depends on the submodule of the business logic module
+
+**Visibility of interface:** This module is visible to the end-user of the system
+***
+**Module Name:** Create User
+
+**Responsibility:** This module takes care of the new user creation in the system
+
+**Relations:** This module depends on the submodule of the application logic module
+
+**Visibility of interface:** This module is visible to the end-user of the system
+***
+**Module Name:** Payment Screen
+
+**Responsibility:** This module takes care of the details that the user inputs for the
+transaction to process
+
+**Relations:** The transaction result depends on the transaction submodule of the
+application logic module
+
+**Visibility of interface:** This module is visible to the end-user of the system
+***
+**Module Name:** Application Logic Module
+
+**Responsibility:** This module is responsible for providing an appropriate response to the user's
+action
+
+**Relations:** The Interface module depends on this module which is in turn dependent on the
+analytic module for transaction actions
+
+**Visibility of interface:** This module is not directly accessible by the end-user.
+
+**Constraints:** Only the request from the interface module is taken into account
+***
+**Submodule Name:** LogInuser
+
+**Responsibility:** The user login details are taken from the login interface (HTTP POST
+request) and validated against the details in the database
+
+**Relations:** Depends on the data from the interface and depends on the data present in
+the submodule user database
+***
+**Submodule Name:** Create User
+
+**Responsibility:** The user details entered in the interface should be validated for
+uniqueness and should be stored in the user database
+
+**Relations:** Depends on the data from the interface and depends on the data present in
+the submodule user database
+***
+**Submodule Name:** Transaction
+
+**Responsibility:** This module takes care of the most important aspect of either
+processing the transaction or declining it
+
+**Relations:** The decision made by this module depends on the Analytic module decision
+***
+**Submodule Name:** User database
+
+**Responsibility:** This module stores all the user details of the transaction details and
+provides them to other submodules as and when needed
+
+**Relations:** All submodules depends on this module for accessing the data
+***
+**Module Name:** 2 Way Connector Module
+
+**Responsibility:** The sole responsibility of this module is to transfer transaction data from the
+transaction submodule to the Analytic module and return the status of the transaction from the
+Analytic module to the transaction submodule
+
+**Relations:** This module depends on transaction submodule for data and analytic submodule for
+prediction
+
+**Visibility of interface:** This module has two endpoints through which the transaction
+submodule and analytic module can connect.
+***
+**Module Name:** Analytical module
+
+**Responsibility:** This module does the analytics part of the system, wherein it takes transaction
+data as input and provides the result whether the transaction is fraudulent or not.
+
+**Relations:** It depends on the two-way connector to pass transaction data from the transaction
+submodule
+
+**Visibility of interface:** The two-way connector is the only module that can access the results
+from the analytic module
+***
+**Module Name:** Data Store Module
+
+**Responsibility:** The dataset that is used for the model training is stored in this module
+
+**Relations:** The data on which the analytics is dependent is stored in this module
+
+**Visibility of interface:** Visible only to the Analytic module
+***
+**Submodule Name:** Raw Data
+
+**Responsibility:** Stores the historical data of the transactions
+
+**Relations:** The Preprocessing module depends on his module for the dataset
+***
+**Submodule Name:** Preprocessed Data
+
+**Responsibility:** The raw data is taken and processed into a form can be fed for the
+analytical model training
+
+**Relations:** The analytic model depends on this data module for both training and testing
+the model
+***
+**Submodule Name:** Trained Model
+
+**Responsibility:** The trained model is stored here to access as and when a new
+transaction is sent to the analytic model for prediction
+
+**Relations:** Analytic model depends on this module for retrieving the already trained
+model and updating the trained model with the latest transactions.
+***
+
 ### 3.1.3 Component and Connector View 
+
+
+#### Overview
+
+System users interact with different system components over the internet through published API
+interfaces that allow interoperability.
+
+#### Elements
+
+**Components:** End Users, Service Users, Service Providers, Infrastructure Components
+(Gateway Manager, Security Manager, User Manager, Transaction Manager, Data Layer
+Manager, AWS based Components)
+
+**Connectors:** Call Return (HTTP, REST calls), Internal Data calls
+
+##### Relations
+
+Attachment of a service call to a service endpoint
+
+#### Properties
+
+Our system considers security and performance for quality attributes. Other attributes can also
+be a ssociated to the system and services in future.
+
+For big data, our system considers 3Vs (Volume, Velocity, Variety)
+
+**Volume:** AWS S3 handles high volume storage, AWS Spark can process queries on high
+volume data
+
+**Velocity:** Batch processing
+
+**Variety:** Addressed by PreProcessing of data
+
+#### Constraints:
+
+* End users must securely connect with the System Gateway
+* A service user may also be a service provider
+* Infrastructure components may mediate the interaction between service consumers and
+service providers such as:
+
+**Gateway Manager:** Core data communication channel in the system
+
+**Data Layer Manager:** Controls access to Data Layer, Facade based design pattern
+
+**AWS SageMaker:** Perform analytics and also provide communication channel between
+AWS EMR and S3
+
+
 ### 3.1.4 Allocation View 
 ### 3.1.5 Quality View 
 ## 3.2 System Usage 
@@ -280,7 +477,7 @@ Mehta, et all, arXiv, aug 2021
 #### 3.2.1.2 User Logout 
 #### 3.2.1.3 Register a User 
 #### 3.2.1.4 Process a Credit Card Transaction 
-## 3.3System Requirements 
+## 3.3 System Requirements 
 # 4 Implementation 
 ## 4.1 User Interface (UI) 
 ## 4.2 Cloud-based Services 
