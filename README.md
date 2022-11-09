@@ -1,6 +1,5 @@
 # Fraud Detection for Credit Card Transactions
 
-(The Documentation is not yet complete.)
 
 ### Technologies used:
 Big Data, AWS, Sagemaker, Elastic Beanstalk, Lambda, S3, EC2, API Gateway, EMR, Cloud
