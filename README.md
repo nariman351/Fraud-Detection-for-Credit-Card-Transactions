@@ -478,23 +478,203 @@ AWS EMR and S3
 #### 3.2.1.3 Register a User 
 #### 3.2.1.4 Process a Credit Card Transaction 
 ## 3.3 System Requirements 
+
+
+Our Big Data Analytics system is composed of the following services:
+
+* User Interface
+
+* Transaction Service
+
+* Data Layer Manager
+
+* Analytics Service
+
+* Data Storage (AWS S3)
+
+* Data Preprocessing
+
+**Service 1: User Interface**
+
+● Our UI would be a web based dynamic html page, which can be used for
+user's I/O operations
+
+**Service 2: Transaction Service**
+
+● Transaction service interacts with UI and Data layer to handle all the user,
+transactions, and security related operations
+
+**Service 3: Data Layer Manager**
+
+● Facade design pattern component to access Data Layer
+
+**Service 4: Analytics Service**
+
+● Analytics service runs the analytics and is the middleware between the
+Spark, S3 and Data Layer Manager
+
+**Service 5: Data Storage (AWS S3)**
+
+● S3 is our data storage facility, which will store Input (Data Store), Sql
+Scripts, Logging Script and Output for data processing operations
+
+**Service 6: Data Preprocessing**
+
+● Pre-processing and processing of raw data received from data layer and
+sent to the analytics for further prediction
+
 # 4 Implementation 
 ## 4.1 User Interface (UI) 
+
+
+The user interface of our application has 4 forms, the ‘Payment Portal’, ‘Login Page’, ‘Create
+New User Page’ and ‘Transaction Page’. Screenshots of all the forms are attached below:
+
+
 ## 4.2 Cloud-based Services 
+
+
+The entire system setup uses multiples services provided by the AWS cloud. Each service used
+and the purpose for which it has been used is pointed out below:
+
+● **EC2:** Amazon’s Elastic compute cloud provides the service of virtual computers. The
+transaction microservices and the front end application is hosted using these EC2
+instances.
+
+● **S3:** Amazon S3 is a simple storage service. The storing and retrieving of data sets,
+storing the preporossed data, and also the storage of all microservies deployed is
+handled by the S3 buckets.
+
+● **Elastic Beanstalk:** As an alternative to explicitly configuring EC2, S3 and load
+balancers, AWS provides elastic beanstalk as a combined service that allows to deploy
+applications independent of configurations. This service is used to deploy our flask
+based microservcie in which the preprocessing of each incoming transaction is handled.
+
+● **Sagemaker:** Used to create ML model, train the model and deploy the trained model in
+cloud
+
+● **AWS Lambda:** It is a computing service that runs code in response to events and
+automatically manages the computing resources required by that code. The end point of
+the ML model is triggered from the lamda function
+
+● **Amazon API Gateway:** The lambda function is exposed to other services via the API
+Gateway service.
+
+
 ## 4.3 Cloud-based Data Analytics 
+
+
+Cloud-based Data analytics is the process of using analytic algorithms in the cloud to analyse
+data in a private or public cloud and then delivering a desired result. Cloud analytics entails the
+use of scalable cloud computing in conjunction with advanced analytic tools to find patterns in
+data and derive new insights. Amazon services are used for data analytics part of this project.
+
+
 ### 4.3.1 SageMaker 
+
+SageMaker is the machine learning service for amazon. SageMaker can be used
+to design and train machine learning models fast and simple without considering
+infrastructure needs. It has the ability to deploy the developed model directly as
+an endpoint that is production ready hosted environment. There is no need for
+server and environment management as its all handled by SageMaker. This
+project uses SageMaker itself and many of its subservices and features.
+
+
 ### 4.3.2 XGBoost 
+
+
+XGBoost stands for “Extreme Gradient Boosting”. It is a distributed gradient
+boosting library that is geared for efficiency, flexibility, and portability. It uses the
+Gradient Boosting framework to construct machine learning algorithms. XGBoost
+uses parallel tree boosting (also known as GBDT or GBM) to tackle a variety of
+data science issues quickly and accurately. The same algorithm may tackle
+problems with billions of instances in a distributed environment (Hadoop, SGE,
+MPI).
+
+
 ## 4.4 Cloud-based Microservices 
+
+
+The microservies that responds to the user interafce actions are all implemented
+using Java Springboot. These services have the following API endpoints:
+
+
 ### 4.4.1 Gateway Manager Endpoints 
 ### 4.4.2 Security Manager 
 ### 4.4.3 Transaction Manager 
 ### 4.4.4 User Manager 
 ### 4.4.5 Data Layer Manager 
 # 5 Big Data Considerations 
+
+
+Role of Big Data in Fraud Detection
+Day-to-day transactions and historical transactions have grown to several PB in
+recent years. Increasing volumes, velocity, and variability of data are making
+machine learning algorithms less efficient. The Big data frameworks will facilitate
+efficient data ingestion to analytical servers.
+This project is cloud based. Cloud computing is the transmission of computing
+services including servers, storage, databases, networking, software, analytics,
+and intelligence via the Internet (“the Cloud”) in order to provide speedier
+innovation, more flexible resources, and economies of scale. Big data
+considerations for this project are all met within the cloud. There are many
+companies offering cloud services, namely Amazon(AWS), Microsoft(Azure),
+Google(GCP). This project incorporates AWS services for its deployment.
+
+
 ## 5.1 Velocity 
+
+
+Velocity for big data refers to the pace at which data is created and transferred.
+This is a critical consideration for businesses that want their data to flow rapidly
+so that they may make the best business decisions possible. This project is
+designed with velocity in mind, be it transactions per second or querying the
+results and stored data. AWS services ensure scalability for peak hours and to
+allocate more resources when necessary, for example when a query is being
+done in S3 which is the storage service for AWS and our stored data.
+
+
 ## 5.2 Volume 
+
+
+Volume refers to the total amount of data available. As the initial size and amount of
+data acquired, volume is like the foundation of big data. Big data is defined as data with
+a sufficiently enormous volume. Although our current data volume is low this project is
+designed with volume considerations in mind. S3 secures the scalability of volume and
+can accomodate unlimited amount of transactions all with the costs in mind, meaning
+you only pay as much as you use.
+
+
 ## 5.3 Value 
+
+
+The value of big data comes from insight discovery and pattern detection, which
+leads to more efficient operations, greater customer connections, and other clear
+and provable economic benefits. The core concept of this project was to extract
+more value through the use of machine learning algorithms and to ensure
+security and safety of the clients and waste of resources.
+
+
 ## 5.4 Other Big data characteristics 
+
+
+Big data is a thousand heads hydra. The are many characteristics for big data
+and they are ever changing and evolving. There are more characteristics that our
+project might have encountered or solved but the most notable ones that were
+directly involved were mentioned above.
+
+
 # 6 Project Plan 
 ## 6.1 Time Schedule For Completion Of The Project Work 
 # 7 Summary and Future Work 
+
+
+We proposed a Credit Card Fraud detection model using cloud services to
+cope with the high processing needed to train the model with 20 million records
+from the dataset that is used. The analytics model returns the result of analytics
+and it is integrated with the transaction service result to decide weather the
+transaction has to be processed or declined.
+The enhancement to our project that we can think of is to try to implement live
+streaming data using some of the real-time streaming data pipelines, so that the
+velocity component of Big data may be satisfied adequately in a real-world
+scenario.
+
