@@ -480,7 +480,7 @@ AWS EMR and S3
 
 ### 3.1.5 Quality View 
 
-![Quality View](/images/312.png)
+![Quality View](/images/315.png)
 
 ## 3.2 System Usage 
 ### 3.2.1 Sequence Diagram 
