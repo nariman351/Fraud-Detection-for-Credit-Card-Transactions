@@ -270,9 +270,12 @@ Mehta, et all, arXiv, aug 2021
 # 3 Technical Details 
 ## 3.1 The Architecture 
 ### 3.1.1 The Overall System Design 
+
+![The Overall System Design](/images/311.png)
+
 ### 3.1.2 Module View 
 
-
+![Module View](/images/312.jpg)
 
 ***
 **Module Name:** Interface Module
@@ -286,8 +289,9 @@ response to the user's action
 
 **Constraints:** The response highly depends on the application logic, without that the interface is
 barely a static page
-Interface Submodule
-***
+
+**Interface Submodule**
+
 **Submodule Name:** Home Screen
 
 **Responsibility:** This module provides two options for the user, either Login or Create
@@ -297,7 +301,7 @@ new user
 new user submodule
 
 **Visibility of interface:** This module is visible to the end-user of the system
-***
+
 **Submodule Name:** Log In
 
 **Responsibility:** This module takes care of the user’s input for login details
@@ -305,7 +309,7 @@ new user submodule
 **Relations:** This module depends on the submodule of the business logic module
 
 **Visibility of interface:** This module is visible to the end-user of the system
-***
+
 **Module Name:** Create User
 
 **Responsibility:** This module takes care of the new user creation in the system
@@ -313,7 +317,7 @@ new user submodule
 **Relations:** This module depends on the submodule of the application logic module
 
 **Visibility of interface:** This module is visible to the end-user of the system
-***
+
 **Module Name:** Payment Screen
 
 **Responsibility:** This module takes care of the details that the user inputs for the
@@ -335,7 +339,7 @@ analytic module for transaction actions
 **Visibility of interface:** This module is not directly accessible by the end-user.
 
 **Constraints:** Only the request from the interface module is taken into account
-***
+
 **Submodule Name:** LogInuser
 
 **Responsibility:** The user login details are taken from the login interface (HTTP POST
@@ -343,7 +347,7 @@ request) and validated against the details in the database
 
 **Relations:** Depends on the data from the interface and depends on the data present in
 the submodule user database
-***
+
 **Submodule Name:** Create User
 
 **Responsibility:** The user details entered in the interface should be validated for
@@ -351,14 +355,14 @@ uniqueness and should be stored in the user database
 
 **Relations:** Depends on the data from the interface and depends on the data present in
 the submodule user database
-***
+
 **Submodule Name:** Transaction
 
 **Responsibility:** This module takes care of the most important aspect of either
 processing the transaction or declining it
 
 **Relations:** The decision made by this module depends on the Analytic module decision
-***
+
 **Submodule Name:** User database
 
 **Responsibility:** This module stores all the user details of the transaction details and
@@ -396,13 +400,13 @@ from the analytic module
 **Relations:** The data on which the analytics is dependent is stored in this module
 
 **Visibility of interface:** Visible only to the Analytic module
-***
+
 **Submodule Name:** Raw Data
 
 **Responsibility:** Stores the historical data of the transactions
 
 **Relations:** The Preprocessing module depends on his module for the dataset
-***
+
 **Submodule Name:** Preprocessed Data
 
 **Responsibility:** The raw data is taken and processed into a form can be fed for the
@@ -410,7 +414,7 @@ analytical model training
 
 **Relations:** The analytic model depends on this data module for both training and testing
 the model
-***
+
 **Submodule Name:** Trained Model
 
 **Responsibility:** The trained model is stored here to access as and when a new
@@ -418,10 +422,11 @@ transaction is sent to the analytic model for prediction
 
 **Relations:** Analytic model depends on this module for retrieving the already trained
 model and updating the trained model with the latest transactions.
-***
+
 
 ### 3.1.3 Component and Connector View 
 
+![Component and Connector View](/images/313.png)
 
 #### Overview
 
@@ -470,13 +475,31 @@ AWS EMR and S3
 
 
 ### 3.1.4 Allocation View 
+
+![Allocation View](/images/314.png)
+
 ### 3.1.5 Quality View 
+
+![Quality View](/images/312.png)
+
 ## 3.2 System Usage 
 ### 3.2.1 Sequence Diagram 
 #### 3.2.1.1 User Login 
+
+![User Login](/images/3211.png)
+
 #### 3.2.1.2 User Logout 
+
+![User Logout](/images/3212.png)
+
 #### 3.2.1.3 Register a User 
+
+![Register a User](/images/3213.png)
+
 #### 3.2.1.4 Process a Credit Card Transaction 
+
+![Process a Credit Card Transaction ](/images/3214.png)
+
 ## 3.3 System Requirements 
 
 
@@ -499,29 +522,41 @@ Our Big Data Analytics system is composed of the following services:
 ● Our UI would be a web based dynamic html page, which can be used for
 user's I/O operations
 
+![Service 1: User Interface](/images/33service1.png)
+
 **Service 2: Transaction Service**
 
 ● Transaction service interacts with UI and Data layer to handle all the user,
 transactions, and security related operations
 
+![Service 2: Transaction Service](/images/33service2.png)
+
 **Service 3: Data Layer Manager**
 
 ● Facade design pattern component to access Data Layer
+
+![Service 3: Data Layer Manager](/images/33service3.png)
 
 **Service 4: Analytics Service**
 
 ● Analytics service runs the analytics and is the middleware between the
 Spark, S3 and Data Layer Manager
 
+![Service 4: Analytics Service](/images/33service4.png)
+
 **Service 5: Data Storage (AWS S3)**
 
 ● S3 is our data storage facility, which will store Input (Data Store), Sql
 Scripts, Logging Script and Output for data processing operations
 
+![Service 5: Data Storage (AWS S3)](/images/33service5.png)
+
 **Service 6: Data Preprocessing**
 
 ● Pre-processing and processing of raw data received from data layer and
 sent to the analytics for further prediction
+
+![Service 6: Data Preprocessing](/images/33service6.png)
 
 # 4 Implementation 
 ## 4.1 User Interface (UI) 
@@ -530,6 +565,11 @@ sent to the analytics for further prediction
 The user interface of our application has 4 forms, the ‘Payment Portal’, ‘Login Page’, ‘Create
 New User Page’ and ‘Transaction Page’. Screenshots of all the forms are attached below:
 
+
+![](/images/41a.png)
+![](/images/41b.png)
+![](/images/41c.png)
+![](/images/41d.png)
 
 ## 4.2 Cloud-based Services 
 
@@ -665,6 +705,9 @@ directly involved were mentioned above.
 
 # 6 Project Plan 
 ## 6.1 Time Schedule For Completion Of The Project Work 
+
+![ime Schedule For Completion Of The Project Work ](/images/61.png)
+
 # 7 Summary and Future Work 
 
 
