@@ -84,11 +84,11 @@ milliseconds with the accuracy of 85 percent.
     - [4.3.1 SageMaker](#431-sagemaker)
     - [4.3.2 XGBoost](#432-xgboost)
   - [4.4 Cloud-based Microservices](#44-cloud-based-microservices)
-    - [4.4.1 Gateway Manager Endpoints](#441-gateway-manager-endpoints)
-    - [4.4.2 Security Manager](#442-security-manager)
+    - [4.4.1 Endpoints](#441-endpoints)
+<!--     - [4.4.2 Security Manager](#442-security-manager)
     - [4.4.3 Transaction Manager](#443-transaction-manager)
     - [4.4.4 User Manager](#444-user-manager)
-    - [4.4.5 Data Layer Manager](#445-data-layer-manager)
+    - [4.4.5 Data Layer Manager](#445-data-layer-manager) -->
 - [5 Big Data Considerations](#5-big-data-considerations)
   - [5.1 Velocity](#51-velocity)
   - [5.2 Volume](#52-volume)
@@ -642,11 +642,35 @@ The microservies that responds to the user interafce actions are all implemented
 using Java Springboot. These services have the following API endpoints:
 
 
-### 4.4.1 Gateway Manager Endpoints 
+### 4.4.1 Endpoints 
+
+
+The managers below each have their own endpoints with Mapping and input / output.
+
+* Gateway Manager 
+* Security Manager
+* Transaction Manager
+* User Manager 
+* Data Layer Manager 
+
+The Gateway manager end points are shown in the table below as an example.
+(The endpoints are just examples and will not work.)
+
+
+| Endpoint Action Name | Endpoint Action URL |  HTTP Mapping | Input | Output |
+| --- | --- | --- | --- | --- |
+|Register a user | http://ec2-35-182-145-79.ca-central-1.compute.amazonaws.com:5000/registerUser | POST | {"username": String,"password" : String,"firstName" : String,"lastName" : String,"address" : String,"city" : String,"state" : String,"country" : String,"postalCode" : String,"phoneNumber" :String} | Response Entity<String> |
+| Process a Transaction | http://ec2-35-182-145-79.ca-central-1.compute.amazonaws.com:5000/processTransaction | POST | {"username" : String,"ccNumber" : Long,"expMonth" : Int,"expYear" : Int,"amount" : Double} | ResponseEntity<String> |
+| Login User | http://ec2-35-182-145-79.ca-central-1.compute.amazonaws.com:5000/loginUser/{username},{password} | GET | None | Response Entity<String> |
+| Logout User | http://ec2-35-182-145-79.ca-central-1.compute.amazonaws.com:5000/logoutUser/{username} | GET | None | Response Entity<String> |
+| User Login Status | http://ec2-35-182-145-79.ca-central-1.compute.amazonaws.com:5000/userLoginStatus/{username} | GET | None | Boolean |
+
+<!-- 
 ### 4.4.2 Security Manager 
 ### 4.4.3 Transaction Manager 
 ### 4.4.4 User Manager 
-### 4.4.5 Data Layer Manager 
+### 4.4.5 Data Layer Manager  -->
+  
 # 5 Big Data Considerations 
 
 
