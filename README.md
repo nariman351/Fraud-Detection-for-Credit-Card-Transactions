@@ -6,8 +6,7 @@
 </p>
 
 ### Technologies used:
-Big Data, AWS, Sagemaker, Elastic Beanstalk, Lambda, S3, EC2, API Gateway, EMR, Cloud
-Watch, Python, Spark, Flask, Java Springboot, SQL, XGBoost, StandardWeb technologies
+MLOps, Big Data, AWS, Sagemaker, Elastic Beanstalk, Lambda, S3, EC2, API Gateway, EMR, Cloud Watch, Python, Spark, Flask, Java Springboot, SQL, CatBoost, Standard Web technologies
 
 
 ### Summary of the project:
@@ -17,16 +16,14 @@ multiple services and micro-services for credit card fraud detection using
 cloud based big data analytics and AIOps.
 
 • Worked with S3, EMR, Sagemaker and Spark to create and train a production
-level XGBoost Model to detect fraudulent transactions.
+level CatBoost Model to detect fraudulent transactions.
 
 • Programmed a preprocessing micro-service using Flask and Elastic Beanstalk
 to handle client-side data preprocessing. Integrated other services to
 Data Analytics services using AWS Lambda serverless function and API
 Gateway.
 
-• The completed system was capable of preforming transactions with a
-web UI while detecting fraudulent credit card transactions under 300
-milliseconds with the accuracy of 85 percent.
+• The completed system was capable of performing transactions with a web UI while detecting fraudulent credit card transactions under 300 milliseconds with 97% Precision, 76% Recall and the area under the ROC curve of 82%.
 
 
 
